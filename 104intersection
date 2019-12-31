@@ -9,24 +9,22 @@
 
 import sys
 
+def check_error(argv):
+    if len(argv) != 9:
+        sys.exit(84)
+    for i in range(1, 9):
+        try:
+            argv[i] = float(argv[i])
+        except ValueError:
+            sys.exit(84)
+    if argv[1] < 1 or argv[1] > 3:
+        sys.exit(84)
+    if (argv[1] != 3 and argv[8] <= 0) or (argv[1] == 3 and argv[8] < 0):
+        sys.exit(84)
+
 def main(ac, av):
+    check_error(av)
     return (0)
 
 if __name__ == "__main__":
    sys.exit(main(len(sys.argv), sys.argv))
-
-def check_error():
-    if (len(argv) != 9):
-        exit 84
-    elif (argv[1] < 1 or argv[1] > 1):
-        exit 84
-    for i in range(2, 8):
-        try:
-            float(argv[i])
-        except ValueError:
-            exit 84
-    if (argv[1] != 3 and argv[8] <= 0):
-        exit (84)
-
-#body
-check_error()

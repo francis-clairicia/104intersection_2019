@@ -8,13 +8,23 @@
 ##
 
 import sys
+from point import Point, Vector
+from sphere import intersection_with_sphere
+from cylinder import intersection_with_cylinder
+from cone import intersection_with_cone
+
+INTERSECTION = {
+    1: intersection_with_sphere,
+    2: intersection_with_cylinder,
+    3: intersection_with_cone
+}
 
 def check_error(argv):
     if len(argv) != 9:
         sys.exit(84)
     for i in range(1, 9):
         try:
-            argv[i] = float(argv[i])
+            argv[i] = int(argv[i])
         except ValueError:
             sys.exit(84)
     if argv[1] < 1 or argv[1] > 3:
@@ -24,6 +34,17 @@ def check_error(argv):
 
 def main(ac, av):
     check_error(av)
+    point = Point(av[2], av[3], av[4])
+    director_vector = Vector(av[5], av[6], av[7])
+    point_list = INTERSECTION[av[1]](point, director_vector, av[8])
+    if point_list is None:
+        print("No intersection point.")
+    elif len(point_list) > 2:
+        print("There is an infinite number of intersection points.")
+    else:
+        print("{} intersection point:".format(len(point_list)))
+        for point in point_list:
+            print("({x:.3f}, {y:.3f}, {z:.3f})".format(x=point.x, y=point.y, z=point.z))
     return (0)
 
 if __name__ == "__main__":

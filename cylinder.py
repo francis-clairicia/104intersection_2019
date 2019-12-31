@@ -7,17 +7,17 @@
 ##
 
 import math
-from point import Point, Vector
+from point import get_point
 
-def dertimine_solution(point, vector, radius):
+def determine_solution(point, vector, radius):
     a = pow(vector.x, 2) + pow(vector.y, 2)
     b = 2 * point.x * vector.x + 2 * point.y * vector.y  
     c = pow(point.x, 2) + pow(point.y, 2) - pow(radius, 2)
-    solution = list();
+    solution = list()
 
     if a == 0:
         if b == 0:
-            return (none)
+            return None
         t = -c / b
         solution.append(get_point(point, vector, t))
     else:
@@ -30,7 +30,7 @@ def dertimine_solution(point, vector, radius):
             solution.append(get_point(point, vector, x2))
         elif (delta == 0):
             x = -b / (2 * a)
-            solution.append(get_point(point, vextor, x))
+            solution.append(get_point(point, vector, x))
         else: 
             return None
     return solution
@@ -39,5 +39,5 @@ def intersection_with_cylinder(point, vector, radius):
     print("Cylinder of radius {}".format(radius))
     print("Line passing through the point ({}, {}, {})".format(point.x, point.y, point.z), end=" ")
     print("and parallel to the vector ({}, {}, {})".format(vector.x, vector.y, vector.z))
-    soluion = dertermine_solution(point, vector, radius)
+    solution = determine_solution(point, vector, radius)
     return solution

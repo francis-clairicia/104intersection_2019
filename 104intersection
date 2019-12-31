@@ -38,9 +38,11 @@ def main(ac, av):
     director_vector = Vector(av[5], av[6], av[7])
     point_list = INTERSECTION[av[1]](point, director_vector, av[8])
     if point_list is None:
-        print("No intersection point.")
-    elif len(point_list) > 2:
-        print("There is an infinite number of intersection points.")
+        if (av[1] == 2) and (director_vector.x == 0) and (director_vector.y == 0) \
+        and (director_vector.z != 0):
+            print("There is an infinite number of intersection points.")
+        else:
+            print("No intersection point.")
     else:
         nb_intersections = "{} intersection "
         nb_intersections += "point:"if len(point_list) == 1 else "points:"

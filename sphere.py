@@ -26,7 +26,7 @@ def intersection_with_sphere(point, vector, radius):
         t = -b / (2 * a)
         return [get_point(point, vector, t)]
     elif delta > 0:
-        t1 = (-b - math.sqrt(delta)) / (2 * a)
-        t2 = (-b + math.sqrt(delta)) / (2 * a)
+        t1 = (-b + math.sqrt(delta)) / (2 * a)
+        t2 = (-b - math.sqrt(delta)) / (2 * a)
         return [get_point(point, vector, t1), get_point(point, vector, t2)]
     return None

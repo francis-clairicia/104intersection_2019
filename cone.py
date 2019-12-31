@@ -7,7 +7,7 @@
 ##
 
 import math
-from point import Point, Vector
+from point import get_point
 
 def intersection_with_cone(point, vector, angle):
     print("Cone with a {} degree angle".format(angle))

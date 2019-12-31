@@ -42,7 +42,9 @@ def main(ac, av):
     elif len(point_list) > 2:
         print("There is an infinite number of intersection points.")
     else:
-        print("{} intersection point:".format(len(point_list)))
+        nb_intersections = "{} intersection "
+        nb_intersections += "point:"if len(point_list) == 1 else "points:"
+        print(nb_intersections.format(len(point_list)))
         for point in point_list:
             print("({x:.3f}, {y:.3f}, {z:.3f})".format(x=point.x, y=point.y, z=point.z))
     return (0)

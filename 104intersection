@@ -6,3 +6,11 @@
 ## File description:
 ## 104intersection
 ##
+
+import sys
+
+def main(ac, av):
+    return (0)
+
+if __name__ == "__main__":
+   sys.exit(main(len(sys.argv), sys.argv))

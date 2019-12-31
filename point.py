@@ -24,3 +24,9 @@ class Vector(Point):
         y = point_b.y - point_a.y
         z = point_b.z - point_a.z
         return cls(x, y, z)
+
+def get_point(point, vector, t):
+    x = point.x + (t * vector.x)
+    y = point.y + (t * vector.y)
+    z = point.z + (t * vector.z)
+    return Point(x, y, z)

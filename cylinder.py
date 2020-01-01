@@ -6,7 +6,7 @@
 ## cylinder.py
 ##
 
-import math
+from math import sqrt
 from point import get_point
 
 def determine_solution(point, vector, radius):
@@ -24,8 +24,8 @@ def determine_solution(point, vector, radius):
         delta = pow(b, 2) - 4 * a * c
 
         if (delta > 0):
-            x1 = (-b + math.sqrt(delta)) / (2 * a)
-            x2 = (-b - math.sqrt(delta)) / (2 * a)
+            x1 = (-b + sqrt(delta)) / (2 * a)
+            x2 = (-b - sqrt(delta)) / (2 * a)
             solution.append(get_point(point, vector, x1))
             solution.append(get_point(point, vector, x2))
         elif (delta == 0):

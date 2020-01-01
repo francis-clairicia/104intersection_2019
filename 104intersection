@@ -8,6 +8,7 @@
 ##
 
 import sys
+from math import sqrt, tan, radians
 from point import Point, Vector
 from sphere import intersection_with_sphere
 from cylinder import intersection_with_cylinder
@@ -19,8 +20,21 @@ INTERSECTION = {
     3: intersection_with_cone
 }
 
-def check_error(argv):
-    if len(argv) != 9:
+def print_help():
+    print("USAGE")
+    print("\t" + "./104intersection opt xp yp zp xv yv zv p" + "\n")
+    print("DESCRIPTION")
+    print("\t" + "opt" + "\t\t" + "surface option: 1 for a sphere, 2 for a cylinder, 3 for a cone")
+    print("\t" + "(xp, yp, zp)" + "\t" + "coordinates of a point by which the light ray passes through")
+    print("\t" + "(xv, yv, zv)" + "\t" + "coordinates of a vector parallel to the light ray")
+    print("\t" + "p" + "\t\t" + "parameter: radius of the sphere, radius of the cylinder, or")
+    print("\t\t\t" + "angle formed by the cone and the Z-axis")
+
+def check_error(argc, argv):
+    if argc > 1 and argv[1] == "-h":
+        print_help()
+        sys.exit(0)
+    if argc != 9:
         sys.exit(84)
     for i in range(1, 9):
         try:
@@ -32,21 +46,39 @@ def check_error(argv):
     if (argv[1] != 3 and argv[8] <= 0) or (argv[1] == 3 and argv[8] < 0):
         sys.exit(84)
 
+def infinite_solutions(opt, point, director_vector, p):
+    if opt == 1:
+        return False
+    elif opt == 2:
+        if director_vector.z == 0:
+            return False
+        if director_vector.x != 0:
+            return False
+        if director_vector.y != 0:
+            return False
+        radius = p
+        if pow(point.x, 2) + pow(point.y, 2) != pow(radius, 2):
+            return False
+    else:
+        angle = p
+        if (pow(point.x, 2) + pow(point.y, 2)) != round(pow(point.z, 2) * pow(tan(radians(angle)), 2)):
+            return False
+    return True
+
 def main(ac, av):
-    check_error(av)
+    check_error(ac, av)
     point = Point(av[2], av[3], av[4])
     director_vector = Vector(av[5], av[6], av[7])
     point_list = INTERSECTION[av[1]](point, director_vector, av[8])
     if point_list is None:
-        if (av[1] == 2) and (director_vector.x == 0) and (director_vector.y == 0) \
-        and (director_vector.z != 0):
+        if infinite_solutions(av[1], point, director_vector, av[8]):
             print("There is an infinite number of intersection points.")
         else:
             print("No intersection point.")
     else:
-        nb_intersections = "{} intersection "
+        nb_intersections = "{} intersection ".format(len(point_list))
         nb_intersections += "point:"if len(point_list) == 1 else "points:"
-        print(nb_intersections.format(len(point_list)))
+        print(nb_intersections)
         for point in point_list:
             print("({x:.3f}, {y:.3f}, {z:.3f})".format(x=point.x, y=point.y, z=point.z))
     return (0)
